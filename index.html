@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Group Chat</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+		
+			var socket = io.connect();
+			
+			socket.on('connect', function() {
+				console.log("Connected");
+			});
+
+			// Receive from any event
+			socket.on('chatmessage', function (data) {
+				console.log(data);
+        renderMessage(data.username, data.message);
+			});
+
+      // render message to .chat-messages
+      var renderMessage = function(username, message) {
+        var messages = document.getElementById('messages');
+			  var newMessage = document.createElement("div");
+        newMessage.innerHTML = username + ": " + message;
+        messages.appendChild(newMessage);
+      }
+		</script>	
+</head>
+<body>
+  <div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ilY6nyNTrWc?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>	</div>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h3>Live Group Chat</h3>
+    </div>
+    <div class="username-container">
+      <input type="text" id="username" placeholder="Enter your username">
+      <button id="enter-chat">Enter Chat</button>
+    </div>
+    <div class="chat-window">
+      <div id="messages" class="chat-messages">
+				No Messages Yet
+			</div>
+      <div class="message-input">
+        <input type="text" id="message" name="message" placeholder="Enter your message">
+        <button id="send-message">Submit</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="bio-container"></div> -->
+  <div class="monkey-profile">
+  <img src="monkeyProfile.png" alt="Monkey profile">
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
